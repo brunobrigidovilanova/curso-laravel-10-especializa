@@ -1,6 +1,6 @@
 <h1>Nova Dúvida</h1>
 
-@if ($errors->any()) //tratamento de erros para o usuario
+@if ($errors->any())  {{-- tratamento de erros para o usuario --}}
     @foreach ($errors->all() as $error )
         <li>{{ $error }}</li>
     @endforeach

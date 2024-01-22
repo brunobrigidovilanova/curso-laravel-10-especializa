@@ -35,7 +35,7 @@ class SupportController extends Controller
         // dd($request->only(['subject', 'body'])); // Obter campos selecionados
         // dd($request->body) "or" dd($request->get('body')); // Obter apenas um campo
         // dd($request->all()); // obtem todos os dados
-        $data = $request->all();
+        $data = $request->validated(); // Só o que está validado
         $data['status'] = 'a'; // Definindo manualmente o "status"
 
         $support = $support->create($data);
@@ -51,7 +51,7 @@ class SupportController extends Controller
         return view('admin/supports/edit', compact('support'));
     }
 
-    public function update(Request $request, Support $support, string|int $id) {
+    public function update(StoreUpdateRequest $request, Support $support, string|int $id) {
         if (!$support = $support->where('id', $id)->first()) {
             return back();
         }
@@ -60,9 +60,7 @@ class SupportController extends Controller
         // $support->body = $request->body;
         // $support->save();
 
-        $support->update($request->only([
-            'subject', 'body'
-        ]));
+        $support->update($request->validated());
 
         return redirect()->route('supports.index');
     }

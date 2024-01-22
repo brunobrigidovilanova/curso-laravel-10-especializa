@@ -1,5 +1,11 @@
 <h1>Dúvida {{ $support->id }}</h1>
 
+@if ($errors->any()) {{-- tratamento de erros para o usuario --}}
+    @foreach ($errors->all() as $error )
+        <li>{{ $error }}</li>
+    @endforeach
+@endif
+
 <form action="{{ route('supports.update', $support->id) }}" method="POST">
     @csrf
     @method('PUT')
