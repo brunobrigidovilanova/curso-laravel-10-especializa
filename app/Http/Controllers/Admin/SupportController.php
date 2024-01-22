@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateRequest;
 use App\Models\Support;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class SupportController extends Controller
         return view('admin/supports/create');
     }
 
-    public function store(Request $request, Support $support) // "Request" Obtem todos os daods da reposição, body, header...
+    public function store(StoreUpdateRequest $request, Support $support) // "Request" Obtem todos os daods da reposição, body, header...
     {
         // dd($request->only(['subject', 'body'])); // Obter campos selecionados
         // dd($request->body) "or" dd($request->get('body')); // Obter apenas um campo
