@@ -41,4 +41,28 @@ class SupportController extends Controller
 
         return redirect()->route('supports.index'); // Manda paar o index os dados puxados
     }
+
+    public function edit(Support $support, string|int $id) {
+        if (!$support = $support->where('id', $id)->first()) {
+            return back();
+        }
+
+        return view('admin/supports/edit', compact('support'));
+    }
+
+    public function update(Request $request, Support $support, string|int $id) {
+        if (!$support = $support->where('id', $id)->first()) {
+            return back();
+        }
+
+        // $support->subject = $request->subject;
+        // $support->body = $request->body;
+        // $support->save();
+
+        $support->update($request->only([
+            'subject', 'body'
+        ]));
+
+        return redirect()->route('supports.index');
+    }
 }
