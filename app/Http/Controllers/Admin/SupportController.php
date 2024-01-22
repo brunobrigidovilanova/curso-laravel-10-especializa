@@ -16,7 +16,15 @@ class SupportController extends Controller
         return view('admin/supports/index', compact('supports')); // Devolve todos os dados para a página
     }
 
-    public function create()
+    public function show(string|int $id) {
+        if (!$support = Support::find($id)) {
+            return back(); // "back()" Retorna a ultima rota acessada
+        }
+
+        return view('admin/supports/show', compact('support'));
+    }
+
+    public function create() // Cria o suporte
     {
         return view('admin/supports/create');
     }
@@ -31,6 +39,6 @@ class SupportController extends Controller
 
         $support = $support->create($data);
 
-        return redirect()->route('supports.index');
+        return redirect()->route('supports.index'); // Manda paar o index os dados puxados
     }
 }

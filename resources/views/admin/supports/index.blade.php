@@ -17,7 +17,7 @@
             <td>{{ $support->status }}</td>
             <td>{{ $support->body }}</td>
             <td>
-                >
+                <a href="{{ route('supports.show', $support->id) }}">ir</a>
             </td>
         </tr>
 
