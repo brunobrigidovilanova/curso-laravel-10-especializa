@@ -13,7 +13,7 @@ class SupportController extends Controller
 
         $supports = $support->all();
 
-        return view('admin/supports/index', compact('supports'));
+        return view('admin/supports/index', compact('supports')); // Devolve todos os dados para a página
     }
 
     public function create()
@@ -21,8 +21,16 @@ class SupportController extends Controller
         return view('admin/supports/create');
     }
 
-    public function store(Request $request) // "Request" Obtem todos os daods da reposição, body, header...
+    public function store(Request $request, Support $support) // "Request" Obtem todos os daods da reposição, body, header...
     {
-        dd($request->all());
+        // dd($request->only(['subject', 'body'])); // Obter campos selecionados
+        // dd($request->body) "or" dd($request->get('body')); // Obter apenas um campo
+        // dd($request->all()); // obtem todos os dados
+        $data = $request->all();
+        $data['status'] = 'a'; // Definindo manualmente o "status"
+
+        $support = $support->create($data);
+
+        return redirect()->route('supports.index');
     }
 }
